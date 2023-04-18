@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['middleware' => 'json.response', 'prefix' => config('app.version')], function () {
-    // auth routes from modules\auth.php
-    Route::prefix('auth')->group(base_path('routes/modules/auth.php'));
+Route::post('reset', [AuthController::class, 'resetPassword']);
+Route::post('reset-password', [AuthController::class, 'setPassword']);
+Route::post('login', [AuthController::class, 'login']);
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::post('logout', [AuthController::class, 'logout']);
 });

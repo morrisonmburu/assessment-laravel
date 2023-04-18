@@ -12,15 +12,22 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('user_tasks', function (Blueprint $table) {
-            $table->id();
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('task_id')->references('id')->on('tasks');
-            $table->foreign('status_id')->references('id')->on('statuses');
+            $table->increments('id');
+            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('task_id');
+            $table->unsignedInteger('status_id');
             $table->string('due_date');
             $table->string('start_time');
             $table->string('end_time');
             $table->string('remarks');
             $table->timestamps();
+            $table->softDeletes();
+        });
+
+        Schema::table('user_tasks', function (Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('task_id')->references('id')->on('tasks');
+            $table->foreign('status_id')->references('id')->on('statuses');
         });
     }
 

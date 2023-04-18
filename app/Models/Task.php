@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Task extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -29,24 +30,4 @@ class Task extends Model
     protected $casts = [
         'due_date' => 'datetime',
     ];
-
-    /**
-     * Get the status that owns the Task
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function status(): BelongsTo
-    {
-        return $this->belongsTo(Status::class);
-    }
-
-    /**
-     * Get the userTasks for the Task
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function userTasks(): HasMany
-    {
-        return $this->hasMany(UserTask::class);
-    }
 }

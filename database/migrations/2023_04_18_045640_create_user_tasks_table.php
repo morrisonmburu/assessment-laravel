@@ -16,9 +16,9 @@ return new class extends Migration
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('task_id');
             $table->unsignedInteger('status_id');
-            $table->string('due_date');
-            $table->string('start_time');
-            $table->string('end_time');
+            $table->timestamp('due_date');
+            $table->timestamp('start_time')->nullable();
+            $table->timestamp('end_time')->nullable();
             $table->string('remarks');
             $table->timestamps();
             $table->softDeletes();

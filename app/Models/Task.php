@@ -30,4 +30,14 @@ class Task extends Model
     protected $casts = [
         'due_date' => 'datetime',
     ];
+
+    /**
+     * Get the status that owns the Task
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
+    }
 }

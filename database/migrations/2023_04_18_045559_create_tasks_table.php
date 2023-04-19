@@ -15,7 +15,7 @@ return new class extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('description');
-            $table->string('due_date');
+            $table->timestamp('due_date');
             $table->unsignedInteger('status_id');
             $table->timestamps();
             $table->softDeletes();

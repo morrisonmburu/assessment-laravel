@@ -23,4 +23,6 @@ Route::group(['middleware' => 'json.response', 'prefix' => config('app.version')
     Route::prefix('statuses')->group(base_path('routes/modules/statuses.php'));
     // users routes from modules\users.php
     Route::prefix('users')->group(base_path('routes/modules/users.php'));
+    // stats routes from modules\stats.php
+    Route::prefix('stats')->group(base_path('routes/modules/stats.php'));
 });

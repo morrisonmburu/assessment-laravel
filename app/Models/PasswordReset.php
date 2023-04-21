@@ -10,5 +10,16 @@ class PasswordReset extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'password_resets';
+    protected $table = 'password_reset_tokens';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'email',
+        'token',
+        'created_at',
+    ];
 }

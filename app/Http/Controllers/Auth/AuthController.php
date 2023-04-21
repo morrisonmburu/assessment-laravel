@@ -71,11 +71,11 @@ class AuthController extends BaseController
             $token = \Str::random(60);
 
             PasswordReset::create([
-                'email_address' => $user->email_address,
+                'email' => $user->email_address,
                 'token' => $token,
             ]);
 
-            $user->notify(new PasswordResetNotice($token));
+            $user->notify(new PasswordResetNotice(PasswordReset::where('token', $token)->first()));
 
             return $this->success('Password reset link sent to your email address', 200);
         } catch (\Exception $e) {

@@ -24,7 +24,7 @@ class AuthController extends BaseController
     {
         try {
             $validator = Validator::make($request->all(), [
-                'email' => 'required|email',
+                'email_address' => 'required|email',
                 'password' => 'required',
             ]);
 
@@ -32,14 +32,14 @@ class AuthController extends BaseController
                 return $this->error($validator->errors(), 400);
             }
 
-            $user = User::where('email', $request->email)->first();
+            $user = User::where('email_address', $request->email_address)->first();
 
             if (!$user) {
                 return $this->error('User not found', 404);
             }
 
             if (!\Hash::check($request->password, $user->password)) {
-                return $this->error('Incorrect password', 401);
+                return $this->error('Incorrect password', 400);
             }
 
             return $this->success([
@@ -55,14 +55,14 @@ class AuthController extends BaseController
     {
         try {
             $validator = Validator::make($request->all(), [
-                'email' => 'required|email',
+                'email_address' => 'required|email',
             ]);
 
             if ($validator->fails()) {
                 return $this->error($validator->errors(), 400);
             }
 
-            $user = User::where('email', $request->email)->first();
+            $user = User::where('email_address', $request->email_address)->first();
 
             if (!$user) {
                 return $this->error('User not found', 404);
@@ -71,13 +71,13 @@ class AuthController extends BaseController
             $token = \Str::random(60);
 
             PasswordReset::create([
-                'email' => $user->email,
+                'email_address' => $user->email_address,
                 'token' => $token,
             ]);
 
             $user->notify(new PasswordResetNotice($token));
 
-            return $this->success('Password reset link sent to your email', 200);
+            return $this->success('Password reset link sent to your email address', 200);
         } catch (\Exception $e) {
             return $this->error($e->getMessage(), 500);
         }
@@ -87,7 +87,7 @@ class AuthController extends BaseController
     {
         try {
             $validator = Validator::make($request->all(), [
-                'email' => 'required|email',
+                'email_address' => 'required|email',
                 'password' => 'required',
                 'confirm_password' => 'required|same:password',
                 'token' => 'required',
@@ -103,7 +103,7 @@ class AuthController extends BaseController
                 return $this->error('Invalid token', 404);
             }
 
-            $user = User::where('email', $passwordReset->email)->first();
+            $user = User::where('email_address', $passwordReset->email_address)->first();
 
             if (!$user) {
                 return $this->error('User not found', 404);

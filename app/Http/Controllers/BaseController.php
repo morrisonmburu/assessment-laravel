@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Http\Helpers\ApiResponder;
 use Illuminate\Support\Collection;
-
+use Illuminate\Http\Request;
 /** 
  * 
  * @group Base Controller

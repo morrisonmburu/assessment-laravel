@@ -40,4 +40,14 @@ class Task extends Model
     {
         return $this->belongsTo(Status::class);
     }
+
+    /**
+     * Get the userTask for the Task
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function userTask()
+    {
+        return $this->hasMany(UserTask::class);
+    }
 }

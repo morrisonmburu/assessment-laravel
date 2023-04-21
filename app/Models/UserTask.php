@@ -35,4 +35,24 @@ class UserTask extends Model
         'due_date' => 'datetime',
     ];
 
+    /**
+     * Get the status that owns the UserTask
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
+    }
+
+    /**
+     * Get the task that owns the UserTask
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function task()
+    {
+        return $this->belongsTo(Task::class);
+    }
+
 }
